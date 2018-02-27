@@ -22,8 +22,8 @@ def run_cypher(arglist):
   n4jpw = base64.decodestring(opts.neopw64)
   graph_db = py2neo.Graph(password=n4jpw) # 'http://localhost:7474/db/data/transaction/commit')
   # want LONG TIMEOUT for CSV loadering
-  from py2neo.packages.httpstream import http
-  http.socket_timeout = 1200 # JGP default was 30 on July 2016, this is 20 min I believe
+  # from py2neo.packages.httpstream import http
+  # http.socket_timeout = 1200 # JGP default was 30 on July 2016, this is 20 min I believe
   # Execute the CYPHER commands in the file
   command_lines = [ x.rstrip('\n').rstrip('\r').strip() for x in open(cypher_fn) ]
   succeeded, failed = 0, 0
@@ -37,9 +37,13 @@ def run_cypher(arglist):
     if next_cmd.startswith("""RETURN '"""): next_cmd = ''; continue
     if opts.verbose: print('Sending CYPHER:[%s]' % next_cmd)
     success = False
-    cursor = None
+    # cursor = None
+    data = None
     command_start = datetime.datetime.now()
-    try:   cursor = graph_db.run(next_cmd).dump()
+    # try:   cursor = graph_db.run(next_cmd).dump()
+    try:   
+      data = graph_db.data(next_cmd)
+      print(data)
     except Exception as e: failed += 1; print('*** DB failure: command %d [%s] : [%s,%s]' % (idx+1,next_cmd,type(e),str(e))); pass
     else:  succeeded += 1; success = True
     if opts.verbose: command_end = datetime.datetime.now(); print('CYPHER execution time: %s' % (str(command_end-command_start),))
