@@ -22,7 +22,7 @@ def run_cypher(arglist):
   n4jpw = base64.decodestring(opts.neopw64)
   # NOTE: assumes neo4j user name : only needs password
   graph_db = py2neo.Graph(password=n4jpw) # 'http://localhost:7474/db/data/transaction/commit')
-  # EMonson changed from original – this package doesn't exist in py2neo any more.
+  # EMonson changed from original : this package doesn't exist in py2neo any more.
   #   Not sure what to do if have timeout problems on remote system – okay on local
   # want LONG TIMEOUT for CSV loadering
   # from py2neo.packages.httpstream import http
