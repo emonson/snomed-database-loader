@@ -166,10 +166,9 @@ def db_build(arglist):
   pathsep = '/'
   # make sure output directory exists and is empty
   opts.output_dir = get_path(opts.output_dir, pathsep)
-# NOTE: commenting out test to see if I can jump directly to cypher execution
-#   if not (os.path.isdir(opts.output_dir) and len(os.listdir(opts.output_dir)) == 0):
-#     print('*** Output directory is not an empty directory [%s] ***' % opts.output_dir)
-#     sys.exit(1)
+  if not (os.path.isdir(opts.output_dir) and len(os.listdir(opts.output_dir)) == 0):
+    print('*** Output directory is not an empty directory [%s] ***' % opts.output_dir)
+    sys.exit(1)
   # open logfile
   logfile = open(opts.output_dir+'build.log', 'w') if not opts.logfile else \
             (sys.output if opts.logfile == '-' else open(opts.logfile, 'w'))
@@ -211,36 +210,36 @@ def db_build(arglist):
   # Commands needed to Create/Update a SNOMED_G Graph Database
   command_list_db_build = [
     {'stepname':'JOB_START',              'log':'JOB-START(action:[%s], mode:[%s], release_type:[%s], rf2:[%s], date:[%s])' % (opts.action, opts.mode, opts.release_type, opts.rf2, yyyymmdd)},
-#     {'stepname':'FIND_ROLENAMES',         'cmd':'python %s/snomed_g_rf2_tools.py find_rolenames --release_type %s --rf2 %s --language_code %s --language_name %s' % (snomed_g_bin,opts.release_type,opts.rf2,opts.language_code,opts.language_name), 'mode':['build','prep','make_csvs','validate']},
-#     {'stepname':'FIND_ROLEGROUPS',        'cmd':'python %s/snomed_g_rf2_tools.py find_rolegroups --release_type %s --rf2 %s --language_code %s --language_name %s' % (snomed_g_bin,opts.release_type,opts.rf2,opts.language_code,opts.language_name), 'mode':['build','prep','make_csvs']},
-#     {'stepname':'MAKE_CONCEPT_CSVS',      'cmd':'python %s/snomed_g_rf2_tools.py make_csv --element concept --release_type %s --rf2 %s --neopw64 %s --action %s --relationship_file %s --language_code %s --language_name %s' %      (snomed_g_bin,opts.release_type,opts.rf2,opts.neopw64,opts.action,opts.relationship_file,opts.language_code,opts.language_name),
-#       'mode':['build','prep','make_csvs','validate']},
-#     {'stepname':'MAKE_DESCRIPTION_CSVS',  'cmd':'python %s/snomed_g_rf2_tools.py make_csv --element description --release_type %s --rf2 %s --neopw64 %s --action %s --relationship_file %s --language_code %s --language_name %s' %  (snomed_g_bin,opts.release_type,opts.rf2,opts.neopw64,opts.action,opts.relationship_file,opts.language_code,opts.language_name),
-#       'mode':['build','prep','make_csvs','validate']},
-#     {'stepname':'MAKE_ISA_REL_CSVS',      'cmd':'python %s/snomed_g_rf2_tools.py make_csv --element isa_rel --release_type %s --rf2 %s --neopw64 %s --action %s --relationship_file %s --language_code %s --language_name %s' %       (snomed_g_bin,opts.release_type,opts.rf2,opts.neopw64,opts.action,opts.relationship_file,opts.language_code,opts.language_name),
-#       'mode':['build','prep','make_csvs','validate']},
-#     {'stepname':'MAKE_DEFINING_REL_CSVS', 'cmd':'python %s/snomed_g_rf2_tools.py make_csv --element defining_rel --release_type %s --rf2 %s --neopw64 %s --action %s --relationship_file %s --language_code %s --language_name %s' % (snomed_g_bin,opts.release_type,opts.rf2,opts.neopw64,opts.action,opts.relationship_file,opts.language_code,opts.language_name),
-#       'mode':['build','prep','make_csvs','validate']},
-#     {'stepname':'TEMPLATE_PROCESSING',    'cmd':'python %s/snomed_g_template_tools.py instantiate %s/snomed_g_graphdb_cypher_%s.template build.cypher --rf2 %s --release_type %s' % (snomed_g_bin,snomed_g_bin,('create' if opts.action=='create' else 'update'),opts.rf2,opts.release_type),
-#       'mode':['build','prep']},
+    {'stepname':'FIND_ROLENAMES',         'cmd':'python %s/snomed_g_rf2_tools.py find_rolenames --release_type %s --rf2 %s --language_code %s --language_name %s' % (snomed_g_bin,opts.release_type,opts.rf2,opts.language_code,opts.language_name), 'mode':['build','prep','make_csvs','validate']},
+    {'stepname':'FIND_ROLEGROUPS',        'cmd':'python %s/snomed_g_rf2_tools.py find_rolegroups --release_type %s --rf2 %s --language_code %s --language_name %s' % (snomed_g_bin,opts.release_type,opts.rf2,opts.language_code,opts.language_name), 'mode':['build','prep','make_csvs']},
+    {'stepname':'MAKE_CONCEPT_CSVS',      'cmd':'python %s/snomed_g_rf2_tools.py make_csv --element concept --release_type %s --rf2 %s --neopw64 %s --action %s --relationship_file %s --language_code %s --language_name %s' %      (snomed_g_bin,opts.release_type,opts.rf2,opts.neopw64,opts.action,opts.relationship_file,opts.language_code,opts.language_name),
+      'mode':['build','prep','make_csvs','validate']},
+    {'stepname':'MAKE_DESCRIPTION_CSVS',  'cmd':'python %s/snomed_g_rf2_tools.py make_csv --element description --release_type %s --rf2 %s --neopw64 %s --action %s --relationship_file %s --language_code %s --language_name %s' %  (snomed_g_bin,opts.release_type,opts.rf2,opts.neopw64,opts.action,opts.relationship_file,opts.language_code,opts.language_name),
+      'mode':['build','prep','make_csvs','validate']},
+    {'stepname':'MAKE_ISA_REL_CSVS',      'cmd':'python %s/snomed_g_rf2_tools.py make_csv --element isa_rel --release_type %s --rf2 %s --neopw64 %s --action %s --relationship_file %s --language_code %s --language_name %s' %       (snomed_g_bin,opts.release_type,opts.rf2,opts.neopw64,opts.action,opts.relationship_file,opts.language_code,opts.language_name),
+      'mode':['build','prep','make_csvs','validate']},
+    {'stepname':'MAKE_DEFINING_REL_CSVS', 'cmd':'python %s/snomed_g_rf2_tools.py make_csv --element defining_rel --release_type %s --rf2 %s --neopw64 %s --action %s --relationship_file %s --language_code %s --language_name %s' % (snomed_g_bin,opts.release_type,opts.rf2,opts.neopw64,opts.action,opts.relationship_file,opts.language_code,opts.language_name),
+      'mode':['build','prep','make_csvs','validate']},
+    {'stepname':'TEMPLATE_PROCESSING',    'cmd':'python %s/snomed_g_template_tools.py instantiate %s/snomed_g_graphdb_cypher_%s.template build.cypher --rf2 %s --release_type %s' % (snomed_g_bin,snomed_g_bin,('create' if opts.action=='create' else 'update'),opts.rf2,opts.release_type),
+      'mode':['build','prep']},
     {'stepname':'CYPHER_EXECUTION',       'cmd':'python %s/snomed_g_neo4j_tools.py run_cypher %s/build.cypher --verbose --neopw64 %s' % (snomed_g_bin, opts.output_dir, opts.neopw64), 'mode':['build','run_cypher']},
     {'stepname':'CHECK_RESULT',           'cmd':'python %s/snomed_g_neo4j_tools.py run_cypher %s/snomed_g_graphdb_update_failure_check.cypher --verbose --neopw64 %s' % (snomed_g_bin, snomed_g_bin, opts.neopw64), 'mode':['build','run_cypher']},
     {'stepname':'JOB_END',                'log':'JOB-END'}
   ]
   command_list_db_build_prep = [
     {'stepname':'JOB_START',              'log':'JOB-START(action:[%s], mode:[%s], release_type:[%s], rf2:[%s], date:[%s])' % (opts.action, opts.mode, opts.release_type, opts.rf2, yyyymmdd)},
-#     {'stepname':'FIND_ROLENAMES',         'cmd':'python %s/snomed_g_rf2_tools.py find_rolenames --release_type %s --rf2 %s --language_code %s --language_name %s' % (snomed_g_bin,opts.release_type,opts.rf2,opts.language_code,opts.language_name), 'mode':['build','prep','make_csvs','validate']},
-#     {'stepname':'FIND_ROLEGROUPS',        'cmd':'python %s/snomed_g_rf2_tools.py find_rolegroups --release_type %s --rf2 %s --language_code %s --language_name %s' % (snomed_g_bin,opts.release_type,opts.rf2,opts.language_code,opts.language_name), 'mode':['build','prep','make_csvs']},
-#     {'stepname':'MAKE_CONCEPT_CSVS',      'cmd':'python %s/snomed_g_rf2_tools.py make_csv --element concept --release_type %s --rf2 %s --neopw64 %s --action %s --relationship_file %s --language_code %s --language_name %s' %      (snomed_g_bin,opts.release_type,opts.rf2,opts.neopw64,opts.action,opts.relationship_file,opts.language_code,opts.language_name),
-#       'mode':['build','prep','make_csvs','validate']},
-#     {'stepname':'MAKE_DESCRIPTION_CSVS',  'cmd':'python %s/snomed_g_rf2_tools.py make_csv --element description --release_type %s --rf2 %s --neopw64 %s --action %s --relationship_file %s --language_code %s --language_name %s' %  (snomed_g_bin,opts.release_type,opts.rf2,opts.neopw64,opts.action,opts.relationship_file,opts.language_code,opts.language_name),
-#       'mode':['build','prep','make_csvs','validate']},
-#     {'stepname':'MAKE_ISA_REL_CSVS',      'cmd':'python %s/snomed_g_rf2_tools.py make_csv --element isa_rel --release_type %s --rf2 %s --neopw64 %s --action %s --relationship_file %s --language_code %s --language_name %s' %       (snomed_g_bin,opts.release_type,opts.rf2,opts.neopw64,opts.action,opts.relationship_file,opts.language_code,opts.language_name),
-#       'mode':['build','prep','make_csvs','validate']},
-#     {'stepname':'MAKE_DEFINING_REL_CSVS', 'cmd':'python %s/snomed_g_rf2_tools.py make_csv --element defining_rel --release_type %s --rf2 %s --neopw64 %s --action %s --relationship_file %s --language_code %s --language_name %s' % (snomed_g_bin,opts.release_type,opts.rf2,opts.neopw64,opts.action,opts.relationship_file,opts.language_code,opts.language_name),
-#       'mode':['build','prep','make_csvs','validate']},
-#     {'stepname':'TEMPLATE_PROCESSING',    'cmd':'python %s/snomed_g_template_tools.py instantiate %s/snomed_g_graphdb_cypher_%s.template build.cypher --rf2 %s --release_type %s' % (snomed_g_bin,snomed_g_bin,('create' if opts.action=='create' else 'update'),opts.rf2,opts.release_type),
-#       'mode':['build','prep']},
+    {'stepname':'FIND_ROLENAMES',         'cmd':'python %s/snomed_g_rf2_tools.py find_rolenames --release_type %s --rf2 %s --language_code %s --language_name %s' % (snomed_g_bin,opts.release_type,opts.rf2,opts.language_code,opts.language_name), 'mode':['build','prep','make_csvs','validate']},
+    {'stepname':'FIND_ROLEGROUPS',        'cmd':'python %s/snomed_g_rf2_tools.py find_rolegroups --release_type %s --rf2 %s --language_code %s --language_name %s' % (snomed_g_bin,opts.release_type,opts.rf2,opts.language_code,opts.language_name), 'mode':['build','prep','make_csvs']},
+    {'stepname':'MAKE_CONCEPT_CSVS',      'cmd':'python %s/snomed_g_rf2_tools.py make_csv --element concept --release_type %s --rf2 %s --neopw64 %s --action %s --relationship_file %s --language_code %s --language_name %s' %      (snomed_g_bin,opts.release_type,opts.rf2,opts.neopw64,opts.action,opts.relationship_file,opts.language_code,opts.language_name),
+      'mode':['build','prep','make_csvs','validate']},
+    {'stepname':'MAKE_DESCRIPTION_CSVS',  'cmd':'python %s/snomed_g_rf2_tools.py make_csv --element description --release_type %s --rf2 %s --neopw64 %s --action %s --relationship_file %s --language_code %s --language_name %s' %  (snomed_g_bin,opts.release_type,opts.rf2,opts.neopw64,opts.action,opts.relationship_file,opts.language_code,opts.language_name),
+      'mode':['build','prep','make_csvs','validate']},
+    {'stepname':'MAKE_ISA_REL_CSVS',      'cmd':'python %s/snomed_g_rf2_tools.py make_csv --element isa_rel --release_type %s --rf2 %s --neopw64 %s --action %s --relationship_file %s --language_code %s --language_name %s' %       (snomed_g_bin,opts.release_type,opts.rf2,opts.neopw64,opts.action,opts.relationship_file,opts.language_code,opts.language_name),
+      'mode':['build','prep','make_csvs','validate']},
+    {'stepname':'MAKE_DEFINING_REL_CSVS', 'cmd':'python %s/snomed_g_rf2_tools.py make_csv --element defining_rel --release_type %s --rf2 %s --neopw64 %s --action %s --relationship_file %s --language_code %s --language_name %s' % (snomed_g_bin,opts.release_type,opts.rf2,opts.neopw64,opts.action,opts.relationship_file,opts.language_code,opts.language_name),
+      'mode':['build','prep','make_csvs','validate']},
+    {'stepname':'TEMPLATE_PROCESSING',    'cmd':'python %s/snomed_g_template_tools.py instantiate %s/snomed_g_graphdb_cypher_%s.template build.cypher --rf2 %s --release_type %s' % (snomed_g_bin,snomed_g_bin,('create' if opts.action=='create' else 'update'),opts.rf2,opts.release_type),
+      'mode':['build','prep']},
     {'stepname':'JOB_END',                'log':'JOB-END'}
   ]
   # OLD --     #{'stepname':'CYPHER_EXECUTION',       'cmd':'%s/neo4j-shell -localhost -file build.cypher' % neo4j_bin, 'mode':['build','run_cypher']},

@@ -20,7 +20,10 @@ def run_cypher(arglist):
     print('Usage: command <cypherfile> --neopw64 <pw>'); sys.exit(1)
   cypher_fn = args[0]
   n4jpw = base64.decodestring(opts.neopw64)
+  # NOTE: assumes neo4j user name – only needs password
   graph_db = py2neo.Graph(password=n4jpw) # 'http://localhost:7474/db/data/transaction/commit')
+  # EMonson changed from original – this package doesn't exist in py2neo any more.
+  #   Not sure what to do if have timeout problems on remote system – okay on local
   # want LONG TIMEOUT for CSV loadering
   # from py2neo.packages.httpstream import http
   # http.socket_timeout = 1200 # JGP default was 30 on July 2016, this is 20 min I believe
@@ -40,6 +43,7 @@ def run_cypher(arglist):
     # cursor = None
     data = None
     command_start = datetime.datetime.now()
+    # EMonson changed – py2neo version different now
     # try:   cursor = graph_db.run(next_cmd).dump()
     try:   
       data = graph_db.data(next_cmd)
