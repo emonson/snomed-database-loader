@@ -11,7 +11,9 @@ on [the homebrew home page](https://brew.sh/).
 
 Short version: Paste into a terminal:
 
-```/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"```
+```
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
 
 By default it will install all packages into the `/usr/local` directory. The recommended
 procedure is to make this directory writable for non-superusers, and then all the homebrew
@@ -48,7 +50,9 @@ To start neo4j, you can type `neo4j start`, but that will require you to kill th
 manually when you want to shut down the server. To have the process running in the console
 in a way you can just `cntl-C` to quit, type 
 
-```neo4j console```
+```
+neo4j console
+```
 
 To access the neo4j browser, put this URL into any web browser:
 
@@ -132,10 +136,12 @@ OIT does have instructions that work, though, for
 to make the VMs accessible through Microsoft Remote Desktop.
 
 ### Pages used for help installing
+
 [https://neo4j.com/docs/operations-manual/current/installation/linux/debian/]()
 [http://www.exegetic.biz/blog/2016/09/installing-neo4j-ubuntu-16-04/]()
 
 ### Java dependency for neo4j
+
 ```
 sudo add-apt-repository ppa:webupd8team/java
 sudo apt-get update
@@ -143,6 +149,7 @@ sudo apt-get install oracle-java8-installer
 ```
 
 #### Checking installed Java version
+
 ```
 rapiduser@rapid-873:~$ java -version
 java version "1.8.0_161"
@@ -151,6 +158,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.161-b12, mixed mode)
 ```
 
 ### Setting up to install neo4j
+
 ```
 wget -O - https://debian.neo4j.org/neotechnology.gpg.key | sudo apt-key add -
 echo 'deb http://debian.neo4j.org/repo stable/' | sudo tee -a /etc/apt/sources.list.d/neo4j.list
@@ -174,9 +182,11 @@ unzip SnomedCT_USEditionRF2_PRODUCTION_20170901T120000Z.zip
 
 ### Anaconda Python 2.7 version
 
-```curl -O https://repo.continuum.io/archive/Anaconda2-5.1.0-Linux-x86_64.sh
+```
+curl -O https://repo.continuum.io/archive/Anaconda2-5.1.0-Linux-x86_64.sh
 bash Anaconda2-5.1.0-Linux-x86_64.sh
-pip install py2neo```
+pip install py2neo
+```
 
 ### neo4j config changes
 
